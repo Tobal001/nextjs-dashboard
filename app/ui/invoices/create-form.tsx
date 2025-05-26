@@ -17,7 +17,7 @@ export default function Form({
   }: { 
     customers: CustomerField[]; 
   }) {
-    const initialState: State = { message: null, error: {} };
+    const initialState: State = { message: null, errors: {} };
     const [state, formAction] = useActionState(createInvoice, initialState)
   return (
     <form action={formAction}>
@@ -46,8 +46,8 @@ export default function Form({
             </select>
             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
-          {state.error?.customerId &&
-            state.error.customerId.map((error: string) => (
+          {state.errors?.customerId &&
+            state.errors.customerId.map((error: string) => (
               <p className="mt-2 text-sm text-red-500" key={error}>
                 {error}
               </p>
@@ -73,8 +73,8 @@ export default function Form({
               <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
             <div id="customer-error" aria-live="polite" aria-atomic="true">
-              {state.error?.amount &&
-                state.error.amount.map((error: string) => (
+              {state.errors?.amount &&
+                state.errors.amount.map((error: string) => (
                   <p className="mt-2 text-sm text-red-500" key={error}>
                     {error}
                   </p>
@@ -121,8 +121,8 @@ export default function Form({
                 </label>
               </div>
             </div>
-            {state.error?.status &&
-              state.error.status.map((error: string) => (
+            {state.errors?.status &&
+              state.errors.status.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
