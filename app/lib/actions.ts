@@ -36,7 +36,7 @@ export type State = {
 };
 
 export async function createInvoice(prevState: State, formData: FormData) {
-    const validatedFields = CreateInvoice.parse ({
+    const validatedFields = CreateInvoice.safeParse ({
         customerId: formData.get('customerId'),
         amount: formData.get('amount'),
         status: formData.get('status'),
@@ -48,6 +48,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
             message: 'Missing Fields. Failed to Create Invoice',
         };
     }
+    const { customerId, amount, status } = validatedFields.data;
     const amountInCents = amount * 100;
     const date = new Date().toISOString().split('T')[0];
     
@@ -98,11 +99,16 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
 }
 
 export async function deleteInvoice(id: string) {
-    throw new Error('Failed to Delete Invoice');
-
+  try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
-    revalidatePath('/dashboard/invoices');
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to Delete Invoice.');
+  }
+
+  revalidatePath('/dashboard/invoices');
 }
+
 
 export async function authenticate(
   prevState: string | undefined,
