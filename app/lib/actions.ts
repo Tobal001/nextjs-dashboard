@@ -27,7 +27,7 @@ const CreateInvoice = FormSchema.omit({id: true, date: true});
 const UpdateInvoice = FormSchema.omit({ id: true, date: true});
 
 export type State = {
-    errors?: {
+    error?: {
         customerId?: string[];
         amount?: string[];
         status?: string[];
@@ -75,7 +75,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
 
   if (!validatedFields.success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      error: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to Update Invoice.',
     };
   }    
