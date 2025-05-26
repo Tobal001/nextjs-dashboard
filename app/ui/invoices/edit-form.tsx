@@ -48,6 +48,9 @@ export default function EditInvoiceForm({
             </select>
             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
+            {state?.error?.customerId && (
+              <p className="mt-2 text-sm text-red-600">{state.error.amount}</p>
+            )}
         </div>
 
         {/* Invoice Amount */}
@@ -69,6 +72,9 @@ export default function EditInvoiceForm({
               <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
+          {state?.error?.amount && (
+            <p className="mt-2 text-sm text-red-600">{state.error.amount}</p>
+          )}
         </div>
 
         {/* Invoice Status */}
@@ -111,6 +117,9 @@ export default function EditInvoiceForm({
                 </label>
               </div>
             </div>
+            {state?.error?.status && (
+              <p className="mt-2 text-sm text-red-600">{state.error.amount}</p>
+            )}
           </div>
         </fieldset>
       </div>
